@@ -1,0 +1,11 @@
+BEGIN;
+
+DROP TABLE IF EXISTS user_activities;
+DROP TABLE IF EXISTS auth_sessions;
+DROP TABLE IF EXISTS otp_sessions;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS departments;
+DROP TABLE IF EXISTS organizations;
+
+COMMIT;

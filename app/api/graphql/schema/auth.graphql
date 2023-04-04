@@ -1,0 +1,28 @@
+type Auther {
+    id: ID
+	name: String
+    isAdmin: Boolean
+    orgUID: NullUUID
+    roleID: NullInt64
+	sessionToken: UUID
+}
+
+input OTPRequest {
+	email: NullString
+	phone: NullString
+}
+
+input LoginRequest {
+	email: NullString
+	phone: NullString
+	otp: NullString
+}
+
+extend type Query {
+	auther: Auther!
+}
+
+extend type Mutation {
+	generateOTP(input: OTPRequest): String
+	login(input: LoginRequest!): Auther!
+}

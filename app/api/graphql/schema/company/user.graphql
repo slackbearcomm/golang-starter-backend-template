@@ -1,0 +1,46 @@
+type User {
+	id: ID
+	firstName: String
+	lastName: String
+	email: String
+	phone: String
+	isFinal: Boolean
+	isArchived: Boolean
+	createdAt: Time
+	updatedAt: Time
+
+    role: Role
+	organization: Organization
+}
+
+type UserResult {
+	users: [User!]!
+	total: Int!
+}
+
+input UpdateUser {
+	firstName: NullString
+	lastName: NullString
+	email: NullString
+	phone: NullString
+	orgUID: NullUUID
+	roleID: NullInt64
+}
+
+extend type Query {
+	users(search: SearchFilter!, roleID: ID): UserResult!
+
+	user(id: ID, email: String, phone: String): User!
+	me: User!
+}
+
+extend type Mutation {
+	superAdminCreate(input: UpdateUser!): User!
+	userCreate(input: UpdateUser!): User!
+	changeDetails(id: ID!, input: UpdateUser!): User!
+	userUpdate(id: ID!, input: UpdateUser!): User!
+	resendEmailVerification(email: String!): Boolean!
+
+	userArchive(id: ID!): User!
+    userUnarchive(id: ID!): User!
+}

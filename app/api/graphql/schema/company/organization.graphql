@@ -1,0 +1,47 @@
+type Organization {
+	id: ID
+	uid: UUID
+	code: String
+	name: String
+	website: NullString
+	sector: String
+	status: String
+	logo: File
+	isArchived: Boolean
+	createdAt: Time
+}
+
+type OrganizationsResult {
+	organizations: [Organization!]!
+	total: Int!
+}
+
+input RegisterOrganization {
+	orgName:   NullString
+    website:   NullString
+    logo:      FileInput
+    sector:    NullString
+    firstName: NullString
+    lastName:  NullString
+    email:     NullString 
+    phone:     NullString
+}
+
+input UpdateOrganization {
+	name: NullString
+	website: NullString
+	sector: NullString
+    logo:      FileInput
+}
+
+extend type Query {
+	organizations(search: SearchFilter!, sector: String): OrganizationsResult!
+	organization(uid: UUID, code: String): Organization!
+}
+
+extend type Mutation {
+	organizationRegister(input: RegisterOrganization!): Organization!
+	organizationUpdate(uid: UUID!, input: UpdateOrganization!): Organization!
+	organizationArchive(uid: UUID!): Organization!
+	organizationUnarchive(uid: UUID!): Organization!
+}

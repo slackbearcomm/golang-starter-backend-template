@@ -1,0 +1,40 @@
+type Role {
+	id: ID
+	code: String
+	name: String
+	isManagement: Boolean
+	isFinal: Boolean
+	isArchived: Boolean
+	createdAt: Time
+
+    organization: Organization
+    department: Department
+	permissions: [String!]
+}
+
+type RolesResult {
+	roles: [Role!]!
+	total: Int!
+}
+
+input UpdateRole {
+	name: NullString
+	isManagement: NullBool
+    orgUID: NullUUID
+    departmentID: NullInt64
+	permissions: [String!]
+	isArchived: NullBool
+}
+
+extend type Query {
+	roles(search: SearchFilter!, deptID: ID): RolesResult!
+	role(id: ID, code: String): Role!
+}
+
+extend type Mutation {
+	roleCreate(input: UpdateRole!): Role!
+	roleUpdate(id: ID!, input: UpdateRole!): Role!
+	roleFinalize(id: ID!): Role!
+	roleArchive(id: ID!): Role!
+    roleUnarchive(id: ID!): Role!
+}

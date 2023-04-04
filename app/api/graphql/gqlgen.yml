@@ -1,0 +1,89 @@
+# Where are all the schema files located? globs are supported eg  src/**/*.graphqls
+schema:
+  - schema/**/*.graphql
+
+# Where should the generated server code go?
+exec:
+  filename: generated/graph/schema_gen.go
+  package: graph
+
+# Uncomment to enable federation
+# federation:
+#   filename: graph/federation.go
+#   package: graph
+
+# Where should any generated models go?
+model:
+  filename: generated/graph/models_gen.go
+  package: graph
+
+# Where should the resolver implementations go?
+resolver:
+  layout: follow-schema
+  dir: generated/resolvergen
+  filename: generated/resolvergen/resolver_gen.go
+  package: resolvergen
+
+# Optional: turn on use `gqlgen:"fieldName"` tags in your models
+# struct_tag: json
+
+# Optional: turn on to use []Thing instead of []*Thing
+omit_slice_element_pointers: true
+
+# Optional: set to speed up generation time by not performing a final validation pass.
+# skip_validation: true
+
+# gqlgen will search for any type names in the schema in these go packages
+# if they match it will use them, otherwise it will generate them.
+autobind: []
+
+# This section declares type mapping between the GraphQL and go type systems
+#
+# The first line in each type will be used as defaults for resolver arguments and
+# modelgen, the others will be allowed when binding to fields. Configure them to
+# your liking
+models:
+  ID:
+    model:
+      - github.com/99designs/gqlgen/graphql.Int64
+  UUID:
+    model:
+      - gogql/app/api/graphql.UUID
+  NullUUID:
+    model:
+      - gogql/app/api/graphql.NullUUID
+  Int:
+    model:
+      - github.com/99designs/gqlgen/graphql.Int
+      - github.com/99designs/gqlgen/graphql.Int64
+      - github.com/99designs/gqlgen/graphql.Int32
+  NullString:
+    model: gogql/app/api/graphql.NullString
+  NullInt:
+    model: gogql/app/api/graphql.NullInt
+  NullInt64:
+    model: gogql/app/api/graphql.NullInt64
+  NullFloat:
+    model: gogql/app/api/graphql.NullFloat
+  NullTime:
+    model: gogql/app/api/graphql.NullTime
+  NullBool:
+    model: gogql/app/api/graphql.NullBool
+
+  # Application defined models
+  Auther:
+    model: gogql/app/models.Auther
+  File:
+    model: gogql/app/models/dbmodels.File
+
+  # Companies/Organizations
+  Organization:
+    model: gogql/app/models/dbmodels.Organization
+  Department:
+    model: gogql/app/models/dbmodels.Department
+  Role:
+    model: gogql/app/models/dbmodels.Role
+  User:
+    model: gogql/app/models/dbmodels.User
+  UserActivity:
+    model: gogql/app/models/dbmodels.UserActivity

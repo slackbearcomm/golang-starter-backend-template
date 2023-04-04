@@ -1,0 +1,34 @@
+type Department {
+	id: ID
+	code: String
+	name: String
+	isFinal: Boolean
+	isArchived: Boolean
+	createdAt: Time
+	updatedAt: Time
+
+    organization: Organization
+}
+
+type DepartmentsResult {
+	departments: [Department!]!
+	total: Int!
+}
+
+input UpdateDepartment {
+	name: NullString
+    orgUID: NullUUID
+}
+
+extend type Query {
+	departments(search: SearchFilter!): DepartmentsResult!
+	department(id: ID, code: String): Department!
+}
+
+extend type Mutation {
+	departmentCreate(input: UpdateDepartment!): Department!
+	departmentUpdate(id: ID!, input: UpdateDepartment!): Department!
+	departmentFinalize(id: ID!): Department!
+	departmentArchive(id: ID!): Department!
+    departmentUnarchive(id: ID!): Department!
+}

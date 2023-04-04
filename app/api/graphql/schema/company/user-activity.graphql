@@ -1,0 +1,22 @@
+type UserActivity {
+	id: ID
+	action: String
+	objectID: NullInt64
+	objectType: NullString
+	sessionToken: UUID
+	createdAt: Time
+	updatedAt: Time
+
+    user: User
+	organization: Organization
+}
+
+type UserActivitiesResult {
+	userActivities: [UserActivity!]!
+	total: Int!
+}
+
+extend type Query {
+	userActivities(search: SearchFilter!, userID: ID): UserActivitiesResult!
+	userActivity(id: ID!): UserActivity!
+}

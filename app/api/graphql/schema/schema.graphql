@@ -1,0 +1,63 @@
+scalar Time
+scalar NullString
+scalar NullInt
+scalar NullInt64
+scalar NullTime
+scalar NullBool
+scalar NullFloat
+scalar Upload
+scalar UUID
+scalar NullUUID
+scalar Any
+
+enum FilterOption {
+	All
+	Active
+	Draft
+	Accepted
+	Archived
+}
+
+enum SortByOption {
+	DateCreated
+	DateUpdated
+	Alphabetical
+}
+
+enum SortDir {
+	Ascending
+	Descending
+}
+
+input SearchFilter {
+	search: NullString
+	filter: FilterOption
+	sortBy: SortByOption
+	sortDir: SortDir
+	offset: NullInt
+	limit: NullInt
+	orgUID: UUID
+}
+
+enum Action {
+	Archive
+	Unarchive
+}
+
+type PageInfo {
+	startCursor: ID!
+	endCursor: ID!
+}
+
+input RequestToken {
+	email: String!
+	password: String!
+}
+
+input BatchActionInput {
+	id: NullInt64
+	str: NullString
+	no: NullInt64
+	dateTime: NullTime
+	bool: NullBool
+}

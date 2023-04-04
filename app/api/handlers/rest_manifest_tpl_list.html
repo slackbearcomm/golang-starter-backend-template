@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Orijin Plus Manifest list</title>
+</head>
+
+<body style="font-family: sans-serif;">
+    <h1>Orijin Plus Manifest list</h1>
+    <table>
+        <thead>
+            <td>
+                Nonce
+            </td>
+            <td>
+                Manifest Merkle Root
+            </td>
+            <td>
+                Transaction Hash
+            </td>
+            <td>
+                Confirmed
+            </td>
+        </thead>
+        {{ $etherscanHost := .EtherscanHost }}
+        {{ range $key, $transaction := .Transactions }}
+        <tr>
+            <td>
+                {{ $transaction.Nonce }}
+            </td>
+            <td>
+                <a href="/api/manifest/tx/{{ $transaction.Hash }}">{{ $transaction.MerkleRoot }}</a>
+            </td>
+            <td>
+                <a href="{{ $etherscanHost }}/tx/{{ $transaction.Hash }} " target="_blank">{{ $transaction.Hash }}</a>
+            </td>
+            <td>
+                {{ $transaction.Confirmed }}
+            </td>
+        </tr>
+        {{ end }}
+    </table>
+</body>
+
+</html>
